@@ -1,14 +1,6 @@
-import withPWAInit from "@ducanh2912/next-pwa";
-
-const withPWA = withPWAInit({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Mantén este objeto vacío si no tienes otras configuraciones específicas
+  // Sin plugins que rompan el build
 };
 
-export default withPWA(nextConfig);
+export default nextConfig;
