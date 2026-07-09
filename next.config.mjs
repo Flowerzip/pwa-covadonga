@@ -1,7 +1,14 @@
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Eliminamos la llamada directa a withPWAInit por ahora para ver si el build pasa
-  // Si esto funciona, sabremos que el plugin es el que causa el conflicto
+  // Mantén este objeto vacío si no tienes otras configuraciones específicas
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);
