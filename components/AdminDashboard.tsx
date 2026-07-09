@@ -28,12 +28,39 @@ interface StatsData {
 const ESPECIALIDADES: Especialidad[] = [
   "Alergología",
   "Algología",
-  "Cardiología",
+  "Anatomopatología",
+  "Anestesiología",
+  "Angiología",
+  "Cardiología Adulto y pediátrica",
+  "Cardiología Intervencionista",
+  "Cirugía General Adulto y Pediátrica",
+  "Cirugía Laparoscópica",
+  "Cirugía Plástica y Estética",
   "Dermatología",
-  "Neurología",
-  "Oftalmología",
+  "Electrofisiología",
+  "Endocrinología",
+  "Fisiatría y Rehabilitación",
+  "Gastroenterología",
+  "Ginecología y Obstetricia",
+  "Ginecología Oncológica",
+  "Neumología",
+  "Medicina Interna",
+  "Medicina crítica",
+  "Neonatología",
+  "Neurocirugía Adulto y Pediatrica",
+  "Neuro Radiología e Intervencionista",
+  "Nutriología",
+  "Odontología, Endodoncia, Cir. Maxilofacial",
+  "Oftalmología Retinología y Glaucoma",
+  "Oncología",
+  "Otorrinolaringología",
+  "Psiquiatría Adulto y Pediátrica",
   "Pediatría",
-  "Traumatología",
+  "Proctología",
+  "Radiología",
+  "Reumatología",
+  "Traumatología y Ortopedia Adulto y Pediátrico",
+  "Urología",
 ];
 
 export default function AdminDashboard({ currentUser, onLogout }: AdminDashboardProps) {
@@ -66,7 +93,7 @@ export default function AdminDashboard({ currentUser, onLogout }: AdminDashboard
   
   // Doctor form fields
   const [docNombre, setDocNombre] = useState("");
-  const [docEspecialidad, setDocEspecialidad] = useState<Especialidad>("Cardiología");
+  const [docEspecialidad, setDocEspecialidad] = useState<Especialidad>("Cardiología Adulto y pediátrica");
   const [docConsultorio, setDocConsultorio] = useState("");
 
   // Fetching Helpers
@@ -215,7 +242,7 @@ export default function AdminDashboard({ currentUser, onLogout }: AdminDashboard
       setDocConsultorio(doc.consultorio);
     } else {
       setDocNombre("");
-      setDocEspecialidad("Cardiología");
+      setDocEspecialidad("Cardiología Adulto y pediátrica");
       setDocConsultorio("");
     }
     setDoctorModalOpen(true);
