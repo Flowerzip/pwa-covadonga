@@ -126,6 +126,10 @@ CREATE INDEX IF NOT EXISTS idx_codigos_otp_telefono_tipo ON codigos_otp(telefono
 -- Carga inicial idéntica a la estructura de mock-data.ts
 -- ============================================================
 
+-- ============================================================
+-- DATOS SEMILLA (Seed Data) - CORREGIDO
+-- ============================================================
+
 -- 1. Insertar Médicos
 INSERT INTO medicos (id, nombre, especialidad, consultorio) VALUES
 (1, 'Dra. Elena Rostova', 'Alergología', 'A-101'),
@@ -135,16 +139,49 @@ INSERT INTO medicos (id, nombre, especialidad, consultorio) VALUES
 (5, 'Dra. Sofía Nakamura', 'Neurología', 'D-301'),
 (6, 'Dr. Ricardo Mendoza', 'Oftalmología', 'B-110'),
 (7, 'Dra. Lucía Fernández', 'Pediatría', 'C-208'),
-(8, 'Dr. Emilio Gutiérrez', 'Traumatología', 'D-102')
+(8, 'Dr. Emilio Gutiérrez', 'Traumatología', 'D-102'),
+(9, 'Dra. Amairani Ortíz', 'Cirugía Laparoscópica', 'E-109'),
+(10, 'Dr. Javier Méndez', 'Cirugía Plástica y Estética', 'C-110'),
+(11, 'Dra. Beatriz Herrera', 'Dermatología', 'D-111'),
+(12, 'Dr. Fernando Castro', 'Electrofisiología', 'D-112'),
+(13, 'Dra. Isabel Ríos', 'Endocrinología', 'D-113'),
+(14, 'Dr. Roberto Vargas', 'Fisitría y Rehabilitación', 'D-114'),
+(15, 'Dra. Mariana López', 'Gastroenterología', 'D-115'),
+(16, 'Dr. Alberto Ruiz', 'Ginecología y Obstetricia', 'G-116'),
+(17, 'Dra. Cecilia Paredes', 'Ginecología Oncológica', 'G-117'),
+(18, 'Dr. Hugo Sánchez', 'Neumología', 'N-118'),
+(19, 'Dra. Patricia Domínguez', 'Medicina Interna', 'N-119'),
+(20, 'Dr. Luis Ortega', 'Medicina crítica', 'N-120'),
+(21, 'Dra. Sofía Mendoza', 'Neonatología', 'N-121'),
+(22, 'Dr. Jorge Luna', 'Neurocirugía Adulto y Pediatrica', 'N-122'),
+(23, 'Dra. Adriana Silva', 'Neuro Radiología e Intervencionista', 'N-123'),
+(24, 'Dr. Oscar Castillo', 'Nutriología', 'N-124'),
+(25, 'Dra. Laura Flores', 'Odontología, Endodoncia, Cir. Maxilofacial', 'O-125'),
+(26, 'Dr. Manuel Rojas', 'Oftalmología Retinología y Glaucoma', 'O-126'),
+(27, 'Dra. Elena Gómez', 'Oncología', 'O-127'),
+(28, 'Dr. Ricardo Núñez', 'Otorrinolaringología', 'O-128'),
+(29, 'Dra. Tania Soto', 'Psiquiatría Adulto y Pediatrica', 'P-129'),
+(30, 'Dr. Carlos Mendoza', 'Pediatría', 'P-130'),
+(31, 'Dra. Valentina Paz', 'Proctología', 'P-131'),
+(32, 'Dr. Héctor Solís', 'Radiología', 'R-132'),
+(33, 'Dra. Ximena Blanco', 'Reumatología', 'R-133'),
+(34, 'Dr. Esteban Rey', 'Traumatología y Ortopedia Adulto y Pediátrico', 'T-134'),
+(35, 'Dra. Natalia Torres', 'Urología', 'U-135')
 ON CONFLICT (id) DO UPDATE SET
     nombre = EXCLUDED.nombre,
     especialidad = EXCLUDED.especialidad,
     consultorio = EXCLUDED.consultorio;
 
+
+
+-- 2. Insertar Administrador
+INSERT INTO usuarios (nombre_completo, telefono, es_admin)
+VALUES ('Mariana Flores', '8124803891', TRUE)
+ON CONFLICT (telefono) DO UPDATE SET es_admin = TRUE, nombre_completo = EXCLUDED.nombre_completo;
 -- Reiniciar secuencia de IDs en Postgres para evitar conflictos futuros
 SELECT setval('medicos_id_seq', (SELECT MAX(id) FROM medicos));
 
--- 2. Insertar Horarios Laborales (Lunes a Viernes = 1 a 5)
+-- 3. Insertar Horarios Laborales (Lunes a Viernes = 1 a 5)
 INSERT INTO horarios_laborales (medico_id, dia_semana, hora_inicio, hora_fin) VALUES
 -- Dra. Elena Rostova (Alergología) L-V 09:00 - 16:00
 (1, 1, '09:00:00', '16:00:00'),
@@ -197,7 +234,64 @@ INSERT INTO horarios_laborales (medico_id, dia_semana, hora_inicio, hora_fin) VA
 (8, 2, '09:00:00', '17:00:00'),
 (8, 3, '09:00:00', '17:00:00'),
 (8, 4, '09:00:00', '17:00:00'),
-(8, 5, '09:00:00', '17:00:00')
+(8, 5, '09:00:00', '17:00:00'),
+-- 10. Dr. Javier Méndez (Cirugía Plástica y Estética) L-V 09:00 - 17:00
+(10, 1, '09:00:00', '17:00:00'), 
+(10, 2, '09:00:00', '17:00:00'), 
+(10, 3, '09:00:00', '17:00:00'), 
+(10, 4, '09:00:00', '17:00:00'), 
+(10, 5, '09:00:00', '17:00:00'),
+
+-- 11. Dra. Beatriz Herrera (Dermatología) L-V 09:00 - 17:00
+(11, 1, '09:00:00', '17:00:00'), (11, 2, '09:00:00', '17:00:00'), (11, 3, '09:00:00', '17:00:00'), (11, 4, '09:00:00', '17:00:00'), (11, 5, '09:00:00', '17:00:00'),
+-- 12. Dr. Fernando Castro (Electrofisiología) L-V 09:00 - 17:00
+(12, 1, '09:00:00', '17:00:00'), (12, 2, '09:00:00', '17:00:00'), (12, 3, '09:00:00', '17:00:00'), (12, 4, '09:00:00', '17:00:00'), (12, 5, '09:00:00', '17:00:00'),
+-- 13. Dra. Isabel Ríos (Endocrinología) L-V 09:00 - 17:00
+(13, 1, '09:00:00', '17:00:00'), (13, 2, '09:00:00', '17:00:00'), (13, 3, '09:00:00', '17:00:00'), (13, 4, '09:00:00', '17:00:00'), (13, 5, '09:00:00', '17:00:00'),
+-- 14. Dr. Roberto Vargas (Fisitría y Rehabilitación) L-V 09:00 - 17:00
+(14, 1, '09:00:00', '17:00:00'), (14, 2, '09:00:00', '17:00:00'), (14, 3, '09:00:00', '17:00:00'), (14, 4, '09:00:00', '17:00:00'), (14, 5, '09:00:00', '17:00:00'),
+-- 15. Dra. Mariana López (Gastroenterología) L-V 09:00 - 17:00
+(15, 1, '09:00:00', '17:00:00'), (15, 2, '09:00:00', '17:00:00'), (15, 3, '09:00:00', '17:00:00'), (15, 4, '09:00:00', '17:00:00'), (15, 5, '09:00:00', '17:00:00'),
+-- 16. Dr. Alberto Ruiz (Ginecología y Obstetricia) L-V 09:00 - 17:00
+(16, 1, '09:00:00', '17:00:00'), (16, 2, '09:00:00', '17:00:00'), (16, 3, '09:00:00', '17:00:00'), (16, 4, '09:00:00', '17:00:00'), (16, 5, '09:00:00', '17:00:00'),
+-- 17. Dra. Cecilia Paredes (Ginecología Oncológica) L-V 09:00 - 17:00
+(17, 1, '09:00:00', '17:00:00'), (17, 2, '09:00:00', '17:00:00'), (17, 3, '09:00:00', '17:00:00'), (17, 4, '09:00:00', '17:00:00'), (17, 5, '09:00:00', '17:00:00'),
+-- 18. Dr. Hugo Sánchez (Neumología) L-V 09:00 - 17:00
+(18, 1, '09:00:00', '17:00:00'), (18, 2, '09:00:00', '17:00:00'), (18, 3, '09:00:00', '17:00:00'), (18, 4, '09:00:00', '17:00:00'), (18, 5, '09:00:00', '17:00:00'),
+-- 19. Dra. Patricia Domínguez (Medicina Interna) L-V 09:00 - 17:00
+(19, 1, '09:00:00', '17:00:00'), (19, 2, '09:00:00', '17:00:00'), (19, 3, '09:00:00', '17:00:00'), (19, 4, '09:00:00', '17:00:00'), (19, 5, '09:00:00', '17:00:00'),
+-- 20. Dr. Luis Ortega (Medicina crítica) L-V 09:00 - 17:00
+(20, 1, '09:00:00', '17:00:00'), (20, 2, '09:00:00', '17:00:00'), (20, 3, '09:00:00', '17:00:00'), (20, 4, '09:00:00', '17:00:00'), (20, 5, '09:00:00', '17:00:00'),
+-- 21. Dra. Sofía Mendoza (Neonatología) L-V 09:00 - 17:00
+(21, 1, '09:00:00', '17:00:00'), (21, 2, '09:00:00', '17:00:00'), (21, 3, '09:00:00', '17:00:00'), (21, 4, '09:00:00', '17:00:00'), (21, 5, '09:00:00', '17:00:00'),
+-- 22. Dr. Jorge Luna (Neurocirugía Adulto y Pediatrica) L-V 09:00 - 17:00
+(22, 1, '09:00:00', '17:00:00'), (22, 2, '09:00:00', '17:00:00'), (22, 3, '09:00:00', '17:00:00'), (22, 4, '09:00:00', '17:00:00'), (22, 5, '09:00:00', '17:00:00'),
+-- 23. Dra. Adriana Silva (Neuro Radiología e Intervencionista) L-V 09:00 - 17:00
+(23, 1, '09:00:00', '17:00:00'), (23, 2, '09:00:00', '17:00:00'), (23, 3, '09:00:00', '17:00:00'), (23, 4, '09:00:00', '17:00:00'), (23, 5, '09:00:00', '17:00:00'),
+-- 24. Dr. Oscar Castillo (Nutriología) L-V 09:00 - 17:00
+(24, 1, '09:00:00', '17:00:00'), (24, 2, '09:00:00', '17:00:00'), (24, 3, '09:00:00', '17:00:00'), (24, 4, '09:00:00', '17:00:00'), (24, 5, '09:00:00', '17:00:00'),
+-- 25. Dra. Laura Flores (Odontología, Endodoncia, Cir. Maxilofacial) L-V 09:00 - 17:00
+(25, 1, '09:00:00', '17:00:00'), (25, 2, '09:00:00', '17:00:00'), (25, 3, '09:00:00', '17:00:00'), (25, 4, '09:00:00', '17:00:00'), (25, 5, '09:00:00', '17:00:00'),
+-- 26. Dr. Manuel Rojas (Oftalmología Retinología y Glaucoma) L-V 09:00 - 17:00
+(26, 1, '09:00:00', '17:00:00'), (26, 2, '09:00:00', '17:00:00'), (26, 3, '09:00:00', '17:00:00'), (26, 4, '09:00:00', '17:00:00'), (26, 5, '09:00:00', '17:00:00'),
+-- 27. Dra. Elena Gómez (Oncología) L-V 09:00 - 17:00
+(27, 1, '09:00:00', '17:00:00'), (27, 2, '09:00:00', '17:00:00'), (27, 3, '09:00:00', '17:00:00'), (27, 4, '09:00:00', '17:00:00'), (27, 5, '09:00:00', '17:00:00'),
+-- 28. Dr. Ricardo Núñez (Otorrinolaringología) L-V 09:00 - 17:00
+(28, 1, '09:00:00', '17:00:00'), (28, 2, '09:00:00', '17:00:00'), (28, 3, '09:00:00', '17:00:00'), (28, 4, '09:00:00', '17:00:00'), (28, 5, '09:00:00', '17:00:00'),
+-- 29. Dra. Tania Soto (Psiquiatría Adulto y Pediatrica) L-V 09:00 - 17:00
+(29, 1, '09:00:00', '17:00:00'), (29, 2, '09:00:00', '17:00:00'), (29, 3, '09:00:00', '17:00:00'), (29, 4, '09:00:00', '17:00:00'), (29, 5, '09:00:00', '17:00:00'),
+-- 30. Dr. Carlos Mendoza (Pediatría) L-V 09:00 - 17:00
+(30, 1, '09:00:00', '17:00:00'), (30, 2, '09:00:00', '17:00:00'), (30, 3, '09:00:00', '17:00:00'), (30, 4, '09:00:00', '17:00:00'), (30, 5, '09:00:00', '17:00:00'),
+-- 31. Dra. Valentina Paz (Proctología) L-V 09:00 - 17:00
+(31, 1, '09:00:00', '17:00:00'), (31, 2, '09:00:00', '17:00:00'), (31, 3, '09:00:00', '17:00:00'), (31, 4, '09:00:00', '17:00:00'), (31, 5, '09:00:00', '17:00:00'),
+-- 32. Dr. Héctor Solís (Radiología) L-V 09:00 - 17:00
+(32, 1, '09:00:00', '17:00:00'), (32, 2, '09:00:00', '17:00:00'), (32, 3, '09:00:00', '17:00:00'), (32, 4, '09:00:00', '17:00:00'), (32, 5, '09:00:00', '17:00:00'),
+-- 33. Dra. Ximena Blanco (Reumatología) L-V 09:00 - 17:00
+(33, 1, '09:00:00', '17:00:00'), (33, 2, '09:00:00', '17:00:00'), (33, 3, '09:00:00', '17:00:00'), (33, 4, '09:00:00', '17:00:00'), (33, 5, '09:00:00', '17:00:00'),
+-- 34. Dr. Esteban Rey (Traumatología y Ortopedia Adulto y Pediátrico) L-V 09:00 - 17:00
+(34, 1, '09:00:00', '17:00:00'), (34, 2, '09:00:00', '17:00:00'), (34, 3, '09:00:00', '17:00:00'), (34, 4, '09:00:00', '17:00:00'), (34, 5, '09:00:00', '17:00:00'),
+-- 35. Dra. Natalia Torres (Urología) L-V 09:00 - 17:00
+(35, 1, '09:00:00', '17:00:00'), (35, 2, '09:00:00', '17:00:00'), (35, 3, '09:00:00', '17:00:00'), (35, 4, '09:00:00', '17:00:00'), (35, 5, '09:00:00', '17:00:00');
 ON CONFLICT (medico_id, dia_semana) DO UPDATE SET
     hora_inicio = EXCLUDED.hora_inicio,
     hora_fin = EXCLUDED.hora_fin;
