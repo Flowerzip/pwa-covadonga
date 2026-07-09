@@ -10,6 +10,7 @@ const nextConfig = {
   // Esto soluciona el conflicto de Turbopack
   experimental: {
     webpackBuildWorker: true,
+    turbopack: {}, 
   },
 };
 
